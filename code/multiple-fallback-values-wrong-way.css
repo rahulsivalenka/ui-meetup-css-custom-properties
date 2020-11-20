@@ -1,0 +1,7 @@
+.three {
+  background-color: var(
+    --my-var,
+    --my-background,
+    pink
+  ); /* Invalid: "--my-background, pink" */
+}

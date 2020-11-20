@@ -1,0 +1,7 @@
+.three {
+  background-color: var(
+    --my-var,
+    var(--my-background, pink)
+  ); /* pink if --my-var and --my-background
+  are not defined */
+}

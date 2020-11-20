@@ -1,0 +1,19 @@
+{
+  "name": "ui-meetup-css-custom-properties",
+  "version": "1.0.0",
+  "description": "A UI Meetup presentation on CSS custom properties",
+  "scripts": {
+    "start": "mdx-deck deck.mdx",
+    "pdf": "mdx-deck-export pdf deck.mdx",
+    "build": "mdx-deck build deck.mdx"
+  },
+  "keywords": [],
+  "author": "Phani Rahul Sivalenka",
+  "license": "ISC",
+  "devDependencies": {
+    "@code-surfer/themes": "^3.1.1",
+    "@mdx-deck/export": "^2.5.1",
+    "code-surfer": "^3.1.1",
+    "mdx-deck": "^3.1.0"
+  }
+}

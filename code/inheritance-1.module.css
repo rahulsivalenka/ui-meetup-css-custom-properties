@@ -1,0 +1,17 @@
+:root {
+  --font-size: 28px;
+}
+
+.one {
+  font-size: var(--font-size);
+}
+
+.two {
+  --font-size: 10px;
+  font-size: var(--font-size);
+}
+
+.three {
+  --font-size: 2em;
+  font-size: var(--font-size);
+}
