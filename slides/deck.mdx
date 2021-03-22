@@ -1,0 +1,479 @@
+import { nightOwl } from '@code-surfer/themes';
+import {
+  CodeSurfer,
+  CodeSurferColumns,
+  Step,
+} from 'code-surfer';
+import { Head, themes } from 'mdx-deck';
+
+import CustomProperties from './components/CustomProperties';
+import Inheritance from './components/Inheritance';
+import Inheritance1 from './components/Inheritance1';
+import PlainOldCss from './components/PlainOldCss';
+import Text from './components/Text';
+import compatibility from './images/compatibility.png';
+
+export const theme = nightOwl;
+
+<Head>
+  <title>
+    CSS Custom Properties - UI Meetup -
+    9th Nov 2020
+  </title>
+  <script
+    async
+    src="https://static.codepen.io/assets/embed/ei.js"
+  ></script>
+</Head>
+
+# CSS Custom Properties
+
+#### UI Meetup - 9th Nov 2020
+
+###### By Phani Rahul Sivalenka
+
+---
+
+<CodeSurferColumns>
+
+<Step subtitle="Let's start with a simple styled markup">
+
+<PlainOldCss />
+
+```html file=./code/plain-old-css.html
+
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns>
+
+<Step subtitle="And CSS for that markup">
+
+<PlainOldCss />
+
+```css file=./code/plain-old-css.module.css
+
+```
+
+</Step>
+
+<Step subtitle="Notice the repetition in the CSS. The background color is set to `brown` in several places.">
+
+<PlainOldCss />
+
+```css 3,20,26,32 file=./code/plain-old-css.module.css
+
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns>
+
+<Step>
+
+<Text
+  padding={50}
+  center={false}
+  content="What if we want to change the background color to 'papayawhip'?"
+/>
+
+```css 3,20,26,32 file=./code/plain-old-css-1.css
+
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns>
+
+<Step>
+
+<Text>
+  There must be an easier way to do
+  this. Something on the lines of
+  extracting the color into a variable
+  and change it there to change it
+  everywhere?
+</Text>
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+### Yes there is
+
+CSS Custom Properties
+
+---
+
+### Also known as
+
+'CSS variables' or 'cascading variables'
+
+---
+
+Let's see how these can be used in our sample markup.
+
+---
+
+<CodeSurferColumns>
+
+<Step subtitle="Declare a variable using `:root` pseudo-class ">
+
+```css 1:3 file=./code/css-custom-properties.css
+
+```
+
+</Step>
+
+<Step subtitle="Use that variable throughout using `var()` CSS function">
+
+```css 7 file=./code/css-custom-properties.css
+
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns>
+
+<Step>
+
+```css subtitle="Old" 3,20,26,32 file=./code/plain-old-css.module.css
+
+```
+
+```css 1:3,7,24,30,36 subtitle="New" file=./code/css-custom-properties.css
+
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns>
+
+<Step subtitle="This allows us to simply change the variable value to use throughout.">
+
+<CustomProperties />
+
+```css 2 file=./code/css-custom-properties-1-papaya.css
+
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+# Features
+
+---
+
+<CodeSurferColumns>
+
+<Step title="Inherit" subtitle="They do inherit. This means that if no value is set for a custom property on a given element, the value of its parent is used.">
+
+<Inheritance />
+
+```html file=./code/inheritance.html
+
+```
+
+```css file=./code/inheritance.module.css
+
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns>
+
+<Step title="Override" subtitle="Can be overriden">
+
+<Inheritance1 />
+
+```html file=./code/inheritance-1.html
+
+```
+
+```css file=./code/inheritance-1.module.css
+
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns>
+
+<Step title="Fallback" subtitle="Can give fallback values using `var()` function when the given variable is not defined">
+
+```css file=./code/fallback-value.css
+
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns>
+
+<Step title="Can have multiple fallback values as well">
+
+```css subtitle="✅ The right way" file=./code/multiple-fallback-values.css
+
+```
+
+```css subtitle="❌ The wrong way" file=./code/multiple-fallback-values-wrong-way.css
+
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns>
+
+<Step title="Runtime" subtitle="They are substituted/calculated at runtime. Which means we can use `calc()` function as seen above">
+
+```css
+:root {
+  --indent-size: 10px;
+
+  --indent-xl: calc(
+    2 * var(--indent-size)
+  );
+  --indent-l: calc(
+    var(--indent-size) + 2px
+  );
+  --indent-s: calc(
+    var(--indent-size) - 2px
+  );
+  --indent-xs: calc(
+    var(--indent-size) / 2
+  );
+}
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns>
+
+<Step title="Invalid Value Handling" subtitle="When invalid values are given, the value falls back to inherited value">
+
+```html
+<p>This paragraph is initial black.</p>
+```
+
+```css
+:root {
+  /* 16px is an invalid value for color */
+  --text-color: 16px;
+}
+p {
+  color: blue;
+}
+p {
+  color: var(--text-color);
+}
+```
+
+</Step>
+
+<Step title="Invalid Value Handling" subtitle="The color value here falls back to inherited value which would be parent's color value or if no parent has a any colot defined it will root html color">
+
+```css 6:8
+:root {
+  /* 16px is an invalid value for color */
+  --text-color: 16px;
+}
+p {
+  color: blue;
+}
+p {
+  color: var(--text-color);
+}
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns>
+
+<Step title="Use in JS" subtitle="Can be set/get using JavaScript">
+
+```js
+// get variable from inline style
+element.style.getPropertyValue(
+  '--my-var'
+);
+
+// get variable from wherever
+getComputedStyle(
+  element
+).getPropertyValue('--my-var');
+
+// set variable on inline style
+element.style.setProperty(
+  '--my-var',
+  jsVar + 4
+);
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<iframe
+  height="422"
+  style="width: 100%;"
+  scrolling="no"
+  title="Theming a site with CSS Custom Properties"
+  src="https://codepen.io/chriscoyier/embed/ybgNKP?height=422&theme-id=dark&default-tab=css,result"
+  frameborder="no"
+  loading="lazy"
+  allowtransparency="true"
+  allowfullscreen="true"
+>
+  See the Pen{' '}
+  <a href="https://codepen.io/chriscoyier/pen/ybgNKP">
+    Theming a site with CSS Custom
+    Properties
+  </a>{' '}
+  by Chris Coyier (
+  <a href="https://codepen.io/chriscoyier">
+    @chriscoyier
+  </a>
+  ) on{' '}
+  <a href="https://codepen.io">
+    CodePen
+  </a>
+  .
+</iframe>
+
+###### Can be used for theming
+
+---
+
+#### Browser Compatibility
+
+<img
+  style={{
+    maxHeight: '80%',
+    marginTop: -50,
+    marginBottom: -70,
+  }}
+  src={compatibility}
+  alt="Browser Compatibility Chart"
+/>
+
+###### Source: [Can I use?](<https://caniuse.com/?search=CSS%20Variables%20(Custom%20Properties)>)
+
+---
+
+<CodeSurferColumns>
+
+<Step title="Compatibility Check" subtitle="Check compatibility using CSS `@supports` rule">
+
+```css 9:14
+:root {
+  --color-blue: #1e90ff; /* hex value for dodgerblue color */
+}
+
+.element {
+  background: var(--color-blue);
+}
+
+@supports (not (--value: 0)) {
+  /* CSS variables not supported */
+  .element {
+    background: dodgerblue;
+  }
+}
+```
+
+</Step>
+
+<Step subtitle="The complete code would look like this">
+
+```css
+:root {
+  --color-blue: #1e90ff; /* hex value for dodgerblue color */
+}
+
+.element {
+  background: var(--color-blue);
+}
+
+@supports (not (--value: 0)) {
+  /* CSS variables not supported */
+  .element {
+    background: dodgerblue;
+  }
+}
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+## References
+
+- [Using CSS custom properties (variables)](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)
+- [CSS Custom Properties and Theming](https://css-tricks.com/css-custom-properties-theming/)
+- [It’s Time To Start Using CSS Custom Properties](https://www.smashingmagazine.com/2017/04/start-using-css-custom-properties/)
+- [A Strategy Guide To CSS Custom Properties](https://www.smashingmagazine.com/2018/05/css-custom-properties-strategy-guide/)
+- [CSS Variables explained with 5 examples](https://codeburst.io/css-variables-explained-with-5-examples-84adaffaa5bd)
+- [Make Your CSS Dynamic with CSS Custom Properties](https://www.toptal.com/front-end/dynamic-css-with-custom-properties)
+
+---
+
+## Tools Used
+
+- [mdx-deck](https://github.com/jxnblk/mdx-deck)
+- [code-surfer](https://github.com/pomber/code-surfer)
+
+---
+
+# Thank You

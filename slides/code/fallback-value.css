@@ -1,0 +1,3 @@
+.two {
+  color: var(--my-var, red); /* Red if --my-var is not defined */
+}
