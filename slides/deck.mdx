@@ -299,7 +299,7 @@ Let's see how these can be used in our sample markup.
 <p>This paragraph is initial black.</p>
 ```
 
-```css
+```css 1:10
 :root {
   /* 16px is an invalid value for color */
   --text-color: 16px;
@@ -314,7 +314,7 @@ p {
 
 </Step>
 
-<Step title="Invalid Value Handling" subtitle="The color value here falls back to inherited value which would be parent's color value or if no parent has a any colot defined it will root html color">
+<Step title="Invalid Value Handling" subtitle="The color value here falls back to inherited value which would be parent's color value or if no parent has a any color defined it will root html color">
 
 ```css 6:8
 :root {
@@ -383,11 +383,9 @@ element.style.setProperty(
   <a href="https://codepen.io/chriscoyier">
     @chriscoyier
   </a>
-  ) on{' '}
-  <a href="https://codepen.io">
+  ) on <a href="https://codepen.io">
     CodePen
-  </a>
-  .
+  </a>.
 </iframe>
 
 ###### Can be used for theming
